@@ -1,0 +1,15 @@
+{
+    "latitude": 40.712,
+    "longitude": 74.0060,
+    "generationtime_ms": 100,
+    "utc_offset_seconds": -14400,
+    "timezone": "America/New_York",
+    "timezone_abbreviation": "EDT",
+    "elevation": 10,
+    "current_units": "Fahrenheit",
+    "current": 75,
+    "hourly_units": "Fahrenheit",
+    "hourly": [72, 74, 76, 78],
+    "daily_units": "Fahrenheit",
+    "daily": [70, 72, 75, 78, 80]
+  }

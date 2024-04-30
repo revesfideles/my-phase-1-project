@@ -1,0 +1,271 @@
+/* Global */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+/* Body Styles */
+body {
+  margin: 16px;
+  font-size: 100%;
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  height: 100%;
+  background: linear-gradient(to bottom, rgb(2, 62, 152) 0%, rgb(160, 209, 237) 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Heading Styles */
+h1 {
+  color: rgb(255, 255, 255);
+  font-size: 60px;
+  font-weight: lighter;
+  font-family: 'Times New Roman', Times, serif;
+  border-style: solid;
+  padding: 10px 20px;
+}
+h2 {
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  font-weight: lighter;
+  font-family: 'Times New Roman', Times, serif;
+  border-style: solid;
+  padding: 5px 10px;
+
+}
+
+/* Date and Time Styles */
+#date {
+  font-size: 16px;
+  padding: 10px 25px;
+  color: rgba(242, 255, 0, 0.966);
+  font-weight: bold;
+  position: absolute;
+  top: 0px;
+  left: 20px;
+}
+
+#time {
+  font-size: 16px;
+  padding: 10px 25px;
+  color: rgb(229, 255, 0);
+  font-weight: bold;
+  position: absolute;
+  top: 50px;
+  left: 20px;
+}
+
+/*List Styles*/
+#alerts-list {
+  color: whitesmoke;
+  list-style-type: none;
+}
+
+#alerts-list li::before {
+  content: "➤";
+  color: red;
+  margin-right: 5px;
+}
+
+/*Click Styles*/
+.click-toggle {
+  cursor: pointer;
+}
+
+/* Weather Information Styles */
+#temperature,
+#apparent-temperature,
+#max-temperature,
+#min-temperature,
+#humidity,
+#cloud-cover,
+#wind-direction,
+#wind-gusts,
+#wind-speed,
+#uv-index-max,
+#sunrise,
+#sunset {
+  font-size: 20px;
+  padding: 10px 15px;
+  color: white;
+  font-weight: bold;
+  border: 1px solid black;
+  padding: 10px 20px;
+  font-family: monospace;
+}
+
+#sunrise,
+#sunset {
+  margin-top: 20px;
+  font-size: 20px;
+  padding: 10px 15px;
+  color: white;
+  font-weight: bold;
+  border: 1px solid black;
+  padding: 10px 20px;
+  font-family: monospace;
+}
+
+#sunrise-container {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+
+@media (min-width: 768px) {
+  #sunrise-container {
+    width: 98%;
+    margin-right: 20px;
+  }
+}
+
+/* Form Styles */
+#search-form {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 20px
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+}
+
+.input-group label {
+  margin-bottom: 5px;
+}
+
+#state-input,
+#city-input,
+button {
+  padding: 10px
+}
+
+#search {
+  background-color: #19bbe8; /* Change to your desired background color */
+  color: #ffffff; /* Change to your desired text color */
+  font-family: monospace;
+  padding: 5px;
+  width: 150px;
+  height: 50px; 
+  margin-top: 20px;
+}
+
+/* Miscellaneous Styles */
+h3 {
+  font-family: monospace;
+  border: 2px solid black;
+  padding: 7px;
+  text-align: center;
+  width: 50%;
+  font-size: x-large;
+}
+
+td, th {
+  text-align: center;
+  vertical-align: middle;
+}
+/*Other Forecast Table Styles*/
+/*Current Weather Table Styles*/
+.data-container {
+  display: flex;
+  }
+  
+  .data-element {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  #current-weather-table {
+    width: 100%;
+    border-collapse: collapse;
+    padding: 20px 30px;
+  }
+
+  #other-forecast-table {
+    width: 100%;
+    border-collapse: collapse;
+    padding: 20px 30px;
+  }
+
+  
+  #current-weather-table th,
+  #current-weather-table td,
+  #other-forecast-table th,
+  #other-forecast-table td {
+    padding: 10px;
+    border: 2px solid black;
+  }
+  
+  #current-weather-table th,
+  #other-forecast-table th {
+    text-align: left;
+  }
+  
+  #current-weather-table td,
+  #other-forecast-table td {
+   text-align: right;
+  }
+
+  #current-weather-table th[colspan="2"],
+  #other-forecast-table td[colspan="2"] {
+  font-size: 20px;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: 2px solid black;
+  font-family: monospace;
+}
+
+
+/* Hourly Weather Table Styles */
+/* Target the table */
+#hourly-weather-data {
+  border-style: solid;
+  border-color: rgb(255, 255, 255);
+  table-layout: fixed;
+  width: 100%;
+  text-align: center;
+}
+
+/* Target the table header row */
+#hourly-weather-data th {
+  font-family: monospace;
+  font-size: large;
+  border: 1px solid black;
+  padding: 7px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Target the table data cells in the rows */
+#hourly-weather-data td {
+  padding: 10px;
+  border: 1px solid black;
+}
+
+/* Hidden Class */
+.hidden {
+  display: none;
+}
+
+/* Hover Effects */
+#sunrise-container:hover {
+  outline: 50px; 
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  transform: scale(0.9);
+  margin-left: 50px;;
+}
+
+.weather-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  }
+  

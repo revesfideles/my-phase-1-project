@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Daily Weather</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+
+    .sunny,
+    .cloudy,
+    .rainy,
+    .thundery,
+    .partly-cloudy {
+       display: none;
+}
+
+h2 {
+  margin-bottom: 4rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.sunny, .partly_cloudy__sun {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  &:before {
+    content: "";
+    position: absolute;
+    height: 80%;
+    width: 80%;
+    top: 10%;
+    right: 10%;
+    border-radius: 50%;
+    z-index: 2;
+    background-color: #f1c40f;
+    background-image: radial-gradient(#f1c40f, #f39c12);
+    box-shadow: 0 0 25px #917508;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    z-index: 1;
+    background-color: #f39c12;
+    will-change: opacity, transform;
+    animation: fadeIn 2s linear infinite reverse, scaleDown 2s linear infinite reverse;
+  }
+}
+
+.cloudy, .partly_cloudy__cloud, .rainy__cloud, .thundery__cloud {
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+
+  &:before {
+    content: "";
+    position: absolute;
+    height: 40%;
+    width: 40%;
+    top: 30%;
+    right: 0%;
+    border-radius: 50%;
+    border-bottom-left-radius: 0;
+    z-index: 2;
+    background-color: #ecf0f1;
+    background-image: radial-gradient(#ecf0f1, #bdc3c7);
+    box-shadow: 0 0 25px rgba(0,0,0,.3);
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    height: 60%;
+    width: 70%;
+    top: 10%;
+    right: 30%;
+    border-radius: 50%;
+    border-bottom-right-radius: 0;
+    z-index: 1;
+    background-color: #ecf0f1;
+    background-image: radial-gradient(#ecf0f1, #bdc3c7);
+    box-shadow: 0 0 25px rgba(0,0,0,.3);
+  }
+}
+
+.partly_cloudy {
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+
+  &__sun {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  &__cloud {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    top: 40%;
+    z-index: 2;
+    will-change: transform;
+    animation: translateUp 2s linear infinite alternate;
+  }
+}
+
+.rainy, .thundery {
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+
+  &__cloud {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    &:before, &:after {
+      background-color: #95a5a6;
+      background-image: radial-gradient(#95a5a6, #7f8c8d);
+    }}
+  }
+
+  &__rain {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    overflow: hidden;
+    &:before {
+      content: "";
+      position: absolute;
+      height: 80%;
+      width: 20%;
+      top: 20%;
+      right: 50%;
+      z-index: 1;
+      background-image: linear-gradient(transparent, #94cdd1);
+      will-change: opacity, transform;
+      animation: fadeIn 1s ease-out infinite reverse, scaleUp 1s ease-out infinite;
+    }}
+    &:after {
+      content: "";
+      position: absolute;
+      height: 60%;
+      width: 20%;
+      top: 40%;
+      right: 20%;
+      z-index: 1;
+      opacity: 0;
+      background-image: linear-gradient(transparent, #94c)
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Weather Forecast Eastern PA</h1>
+    <div class="weather-container">
+    <div id="weather-animation"></div>
+
+    <div class="partly_cloudy">
+      <div class="partly_cloudy__sun"></div>
+      <div class="partly_cloudy__cloud"></div>
+    </div>
+
+    <div class="cloudy"></div>
+
+    <div class="rainy">
+      <div class="rainy__cloud"></div>
+      <div class="rainy__rain"></div>
+    </div>
+
+    <div class="thundery">
+      <div class="thundery__cloud"></div>
+      <div class="thundery__rain"></div>
+    </div>
+
+    <form id="search-form">
+      <div class="input-group">
+        <label for="city-input">City:</label>
+        <input type="text" id="city-input" required>
+        <label for="state-input">State:</label>
+        <input type="text" id="state-input" required>
+      </div>
+      <button id="search" type="submit">Get Current Forecast</button>
+    </form>
+    <h2 id="date">Date</h2>
+    <h2 id="time">Time</h2>
+
+    <div id="temperature-container" class="data-element">
+      <table id="current-weather-table">
+        <thead>
+          <tr>
+            <th colspan="2">Current Weather</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Temperature:</td>
+            <td id="temperature"></td>
+          </tr>
+          <tr>
+            <td>Apparent Temperature:</td>
+            <td id="apparent-temperature"></td>
+          </tr>
+          <tr>
+            <td>Max Temperature:</td>
+            <td id="max-temperature"></td>
+          </tr>
+          <tr>
+            <td>Min Temperature:</td>
+            <td id="min-temperature"></td>
+          </tr>
+          <tr>
+            <td>Humidity:</td>
+            <td id="humidity"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="other-forecast-container" class="data-element">
+      <table id="other-forecast-table">
+        <thead>
+          <tr>
+            <th colspan="2">Other Forecast</th>
+          </tr>
+       </thead>
+      <tbody>
+         <tr>
+           <td>UV Index Max:</td>
+           <td id="uv-index-max"></td>
+         </tr>
+         <tr>
+          <td>Cloud Cover:</td>
+          <td id="cloud-cover"></td>
+         </tr>
+         <tr>
+          <td>Wind Direction:</td>
+          <td id="wind-direction"></td>
+        </tr>
+        <tr>
+          <td>Wind Gusts:</td>
+          <td id="wind-gusts"></td>
+        </tr>
+        <tr>
+          <td>Wind Speed:</td>
+          <td id="wind-speed"></td>
+        </tr>
+     </tbody>
+    </table>
+  </div>
+      
+
+    <div id="sunrise-container" class="data-element">
+      <h3>Sunrise and Sunset</h3>
+      <div id="sunrise" class="hidden">Sunrise</div>
+      <div id="sunset" class="hidden">Sunset</div>
+    </div>
+
+    <div id="hourly-weather">
+      <h3>Hourly Weather</h3>
+      <table id="hourly-weather-data">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Temperature</th>
+            <th>Humidity</th>
+            <th>Wind Speed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table rows will be dynamically generated here -->
+        </tbody>
+      </table>
+    </div>
+
+    <div id="uv-index"></div>
+
+    <div>
+      Alerts:
+      <ul id="alerts-list"></ul>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
